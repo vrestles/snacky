@@ -1,5 +1,6 @@
 package ru.kazakova.snacky.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     @Column(name="brand", nullable=false)
     private String brand;
