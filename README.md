@@ -13,5 +13,5 @@ gradlew bootRun
 Before running the app, run this command in terminal:
 
 ```
-docker run --rm --name postgres-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=qwerty -e POSTGRES_DB=snacky -p 5432:5432 -d postgres:alpine
+docker run --name snacky-pg-13.3 -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=qwerty -e POSTGRES_DB=snacky -d postgres:13.3
 ```
