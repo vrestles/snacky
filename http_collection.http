@@ -17,3 +17,5 @@ Accept: application/json
 // Get info about the product from the database
 GET http://localhost:8080/api/v1/client?brand=Bombbar
 Accept: application/json
+
+###
