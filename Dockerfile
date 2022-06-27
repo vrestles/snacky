@@ -9,6 +9,6 @@ RUN ./gradlew clean build -x test
 
 FROM openjdk:8-jre-alpine
 WORKDIR /root/
-COPY --from=BUILD_IMAGE /root/dev/snacky/build/libs/*.jar /app/snacky.jar
+COPY --from=BUILD_IMAGE '/root/dev/snacky/build/libs/snacky-0.0.1-SNAPSHOT.jar' '/app/snacky.jar'
 EXPOSE 8080
 CMD ["java","-jar","/app/snacky.jar"]
