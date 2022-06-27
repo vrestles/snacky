@@ -31,5 +31,5 @@ docker build -t snacky-app -f Dockerfile .
 
 #### Running the app and PostgreSQL in Docker (MacOs)
 ```
-docker-compose up
+docker-compose up -d
 ```
