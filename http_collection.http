@@ -1,5 +1,18 @@
+// Add new user of the app
+POST http://localhost:8080/registration
+Content-Type: application/json
+Accept: application/json
+
+{
+  "login": "admin",
+  "password": "qwerty"
+}
+
+###
+
 // Add new product to the database
 POST http://localhost:8080/api/v1/admin
+Authorization: Basic admin qwerty
 Content-Type: application/json
 Accept: application/json
 
@@ -16,6 +29,7 @@ Accept: application/json
 
 // Get info about the product from the database
 GET http://localhost:8080/api/v1/client?brand=Bombbar
+Authorization: Basic admin qwerty
 Accept: application/json
 
 ###

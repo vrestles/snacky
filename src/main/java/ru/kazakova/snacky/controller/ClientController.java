@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.kazakova.snacky.model.Product;
-import ru.kazakova.snacky.service.ProductService;
+import ru.kazakova.snacky.model.business.Product;
+import ru.kazakova.snacky.service.business.ProductService;
 
 import java.util.List;
 

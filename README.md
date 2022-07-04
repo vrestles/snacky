@@ -17,6 +17,12 @@ Running (MacOs)
 ```
 ./gradlew bootRun
 ```
+Environment variables to run the app locally:
+```text
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/snacky;
+SPRING_DATASOURCE_USERNAME=admin;
+SPRING_DATASOURCE_PASSWORD=qwerty
+```
 
 #### Before running the app, run this command in terminal:
 

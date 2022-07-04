@@ -1,8 +1,8 @@
-package ru.kazakova.snacky.service;
+package ru.kazakova.snacky.service.business;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.kazakova.snacky.model.Product;
+import ru.kazakova.snacky.model.business.Product;
 import ru.kazakova.snacky.repository.ProductRepository;
 
 import java.util.List;

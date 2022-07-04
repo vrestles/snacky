@@ -1,4 +1,4 @@
-package ru.kazakova.snacky.model;
+package ru.kazakova.snacky.model.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
