@@ -39,3 +39,11 @@ docker build -t snacky-app -f Dockerfile .
 ```
 docker-compose up -d
 ```
+
+### Creating the secret for docker
+```
+docker swarm init
+printf "password" | docker secret create db_password -
+```
+Output we need to save inside the root folder in file called [db_password.txt](./db_password.txt)
+And run the whole project with docker-compose command

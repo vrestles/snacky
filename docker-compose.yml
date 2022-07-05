@@ -1,24 +1,33 @@
-version: '2'
+version: '3.9'
 
 services:
         app:
                 image: 'snacky-app'
                 container_name: 'snacky-app-container'
                 ports:
-                        - 8080:8080
+                        - "8080:8080"
                 depends_on:
                         - postgres
                 environment:
-                        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/snacky
-                        - SPRING_DATASOURCE_USERNAME=admin
-                        - SPRING_DATASOURCE_PASSWORD=qwerty
+                        SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/snacky
+                        SPRING_DATASOURCE_USERNAME: admin
+                        SPRING_DATASOURCE_PASSWORD: /run/secrets/db_password
+                secrets:
+                        - db_password
+
 
         postgres:
                 image: 'postgres:13-alpine'
                 container_name: 'snacky-postgres-container'
                 ports:
-                        - 5432:5432
+                        - "5432:5432"
                 environment:
-                        - POSTGRES_USER=admin
-                        - POSTGRES_PASSWORD=qwerty
-                        - POSTGRES_DB=snacky
+                        POSTGRES_USER: admin
+                        POSTGRES_PASSWORD: /run/secrets/db_password
+                        POSTGRES_DB: snacky
+                secrets:
+                        - db_password
+
+secrets:
+        db_password:
+                file: db_password.txt
