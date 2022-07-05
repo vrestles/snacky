@@ -1,17 +1,25 @@
 package ru.kazakova.snacky.model.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "product")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class Product {
+
+    protected Product() {
+
+    }
+
+    public Product(String brand, String category, String name, String flavour, Double caloriesPer100Gram, Double weight) {
+        this.brand = brand;
+        this.category = category;
+        this.name = name;
+        this.flavour = flavour;
+        this.caloriesPer100Gram = caloriesPer100Gram;
+        this.weight = weight;
+    }
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -29,4 +37,28 @@ public class Product {
     private Double caloriesPer100Gram;
     @Column(name="weight_gram", nullable=false)
     private Double weight;
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFlavour() {
+        return flavour;
+    }
+
+    public Double getCaloriesPer100Gram() {
+        return caloriesPer100Gram;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
 }
