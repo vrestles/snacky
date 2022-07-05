@@ -40,7 +40,7 @@ docker build -t snacky-app -f Dockerfile .
 docker-compose up -d
 ```
 
-### Creating the secret for docker
+### Creating the secret for Docker
 ```
 docker swarm init
 printf "password" | docker secret create db_password -
