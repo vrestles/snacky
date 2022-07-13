@@ -27,5 +27,13 @@ CREATE TABLE IF NOT EXISTS app_user
     id                    SERIAL PRIMARY KEY,
     login                 VARCHAR(100)      NOT NULL UNIQUE,
     password              VARCHAR(255)      NOT NULL,
-    role_id               BIGINT            NOT NULL REFERENCES app_role (id)
+    role_id               BIGINT            NOT NULL REFERENCES app_role (id),
+    account_non_locked    BOOLEAN           NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE app_user_attempts (
+    id                    SERIAL PRIMARY KEY,
+    user_id               BIGINT            NOT NULL REFERENCES app_user (id),
+    attempts              INT               NOT NULL,
+    last_modified          TIMESTAMP         NOT NULL
 );

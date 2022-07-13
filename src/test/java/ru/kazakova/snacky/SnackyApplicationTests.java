@@ -8,11 +8,11 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kazakova.snacky.model.business.Product;
-import ru.kazakova.snacky.model.security.Role;
 import ru.kazakova.snacky.model.security.User;
 import ru.kazakova.snacky.repository.ProductRepository;
 import ru.kazakova.snacky.repository.RoleRepository;
 import ru.kazakova.snacky.repository.UserRepository;
+import ru.kazakova.snacky.service.security.AdministrationService;
 
 import java.util.*;
 
@@ -37,6 +37,9 @@ class SnackyApplicationTests {
     @Autowired
     protected PasswordEncoder passwordEncoder;
 
+    @Autowired
+    protected AdministrationService administrationService;
+
     private final String MANAGER_URL = "/api/v1/manager";
     private final String CLIENT_URL = "/api/v1/client";
 
@@ -51,11 +54,13 @@ class SnackyApplicationTests {
     public void cleanUp() {
         productRepository.deleteAll();
         if (userRepository.findByLogin(USER_TEST_LOGIN) == null) {
-            registerUser();
+            User user = new User(USER_TEST_LOGIN, USER_TEST_PASSWORD);
+            administrationService.register(user);
         }
         if (userRepository.findByLogin(ADMIN_TEST_LOGIN) == null) {
-            Role adminRole = roleRepository.findByName("ADMIN");
-            createUserWithRole(ADMIN_TEST_LOGIN, ADMIN_TEST_PASSWORD, adminRole);
+            User user = new User(ADMIN_TEST_LOGIN, ADMIN_TEST_PASSWORD);
+            administrationService.register(user);
+            administrationService.grantRole(ADMIN_TEST_LOGIN, "ADMIN");
         }
     }
 
@@ -136,16 +141,5 @@ class SnackyApplicationTests {
                 .getForEntity(CLIENT_URL + "?brand=" + "Chicalab", Product[].class);
 
         assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
-    }
-
-    private void registerUser() {
-        User admin = new User(USER_TEST_LOGIN, USER_TEST_PASSWORD);
-        HttpEntity<User> httpEntity = new HttpEntity<>(admin);
-        testRestTemplate.postForEntity("/registration", httpEntity, User.class);
-    }
-
-    private void createUserWithRole(String login, String password, Role role) {
-        User user = new User(login, passwordEncoder.encode(password), role);
-        userRepository.save(user);
     }
 }

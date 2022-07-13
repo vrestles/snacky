@@ -9,8 +9,8 @@ import ru.kazakova.snacky.model.security.CustomUserPrincipal;
 import ru.kazakova.snacky.model.security.User;
 import ru.kazakova.snacky.repository.UserRepository;
 
-@Service
 @RequiredArgsConstructor
+@Service("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
