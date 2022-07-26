@@ -13,7 +13,10 @@ import ru.kazakova.snacky.repository.ProductRepository;
 import ru.kazakova.snacky.repository.RoleRepository;
 import ru.kazakova.snacky.repository.UserRepository;
 import ru.kazakova.snacky.service.security.AdministrationService;
+import ru.kazakova.snacky.util.FileUtil;
+import ru.kazakova.snacky.util.MapperUtil;
 
+import java.io.IOException;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -77,8 +80,9 @@ class SnackyApplicationTests {
     }
 
     @Test
-    public void managerPostProductSuccessTest() {
-        Product product = new Product("Snaq Fabriq", "Bar", "Coco", "Coconut", 407.0, 40.0);
+    public void managerPostProductSuccessTest() throws IOException {
+        String productJson = FileUtil.readFromFileToString("/product/snaq_fabric.json");
+        Product product = MapperUtil.deserializeProduct(productJson);
 
         HttpEntity<Product> httpEntity = new HttpEntity<>(product);
         ResponseEntity<Product> response = testRestTemplate
@@ -89,8 +93,9 @@ class SnackyApplicationTests {
     }
 
     @Test
-    public void managerPostProductForUserFailTest() {
-        Product product = new Product("Snaq Fabriq", "Bar", "Coco", "Coconut", 407.0, 40.0);
+    public void managerPostProductForUserFailTest() throws IOException {
+        String productJson = FileUtil.readFromFileToString("/product/snaq_fabric.json");
+        Product product = MapperUtil.deserializeProduct(productJson);
 
         HttpEntity<Product> httpEntity = new HttpEntity<>(product);
         ResponseEntity<Product> response = testRestTemplate
@@ -101,7 +106,7 @@ class SnackyApplicationTests {
     }
 
     @Test
-    public void clientGetProductsByBrandSuccessTest() {
+    public void clientGetProductsByBrandSuccessTest() throws IOException {
         // all products were in repository before calling endpoint
         String targetBrand = "Snaq Fabriq";
         Product productOne = new Product(targetBrand, "Bar", "Coco", "Coconut", 407.0, 40.0);
@@ -121,9 +126,10 @@ class SnackyApplicationTests {
     }
 
     @Test
-    public void clientGetProductsByBrandForNotAuthFailTest() {
+    public void clientGetProductsByBrandForNotAuthFailTest() throws IOException {
         String targetBrand = "Chicalab";
-        Product product = new Product(targetBrand, "Chocolate","Protein Milk Chocolate", null, 324.0, 120.0);
+        String productJson = FileUtil.readFromFileToString("/product/chicalab.json");
+        Product product = MapperUtil.deserializeProduct(productJson);
         productRepository.save(product);
 
         ResponseEntity<Product> response = testRestTemplate
